@@ -8,3 +8,63 @@
 2025-08-31 10:04:48,761 - app - WARNING - Rate limit hit, retrying in 2 seconds... (attempt 1/3)
 2025-08-31 10:04:51,088 - app - WARNING - Rate limit hit, retrying in 4 seconds... (attempt 2/3)
 2025-08-31 10:04:55,427 - app - ERROR - Rate limit exceeded, falling back to dummy response
+2025-08-31 10:05:20,085 - __main__ - INFO - Gemini API initialized successfully
+2025-08-31 10:05:20,113 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.15.76.110:5000
+2025-08-31 10:05:20,113 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-31 10:05:20,117 - werkzeug - INFO -  * Restarting with stat
+2025-08-31 10:05:50,318 - __main__ - INFO - Gemini API initialized successfully
+2025-08-31 10:05:50,339 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.15.76.110:5000
+2025-08-31 10:05:50,340 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-31 10:05:50,342 - werkzeug - INFO -  * Restarting with stat
+2025-08-31 10:05:52,163 - __main__ - INFO - Gemini API initialized successfully
+2025-08-31 10:05:52,171 - werkzeug - WARNING -  * Debugger is active!
+2025-08-31 10:05:52,175 - werkzeug - INFO -  * Debugger PIN: 272-596-988
+2025-08-31 10:07:11,486 - __main__ - INFO - Gemini API initialized successfully
+2025-08-31 10:07:11,520 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.15.76.110:5000
+2025-08-31 10:07:11,520 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-31 10:07:11,521 - werkzeug - INFO -  * Restarting with stat
+2025-08-31 10:07:13,362 - __main__ - INFO - Gemini API initialized successfully
+2025-08-31 10:07:13,367 - werkzeug - WARNING -  * Debugger is active!
+2025-08-31 10:07:13,374 - werkzeug - INFO -  * Debugger PIN: 272-596-988
+2025-08-31 10:07:18,249 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:07:18] "GET / HTTP/1.1" 200 -
+2025-08-31 10:07:26,425 - __main__ - WARNING - Rate limit hit, retrying in 2 seconds... (attempt 1/3)
+2025-08-31 10:07:28,793 - __main__ - WARNING - Rate limit hit, retrying in 4 seconds... (attempt 2/3)
+2025-08-31 10:07:33,268 - __main__ - ERROR - Rate limit exceeded, falling back to dummy response
+2025-08-31 10:07:33,268 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:07:33] "POST /chat HTTP/1.1" 200 -
+2025-08-31 10:10:54,797 - __main__ - INFO - Gemini API key configured successfully
+2025-08-31 10:10:54,826 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.15.76.110:5000
+2025-08-31 10:10:54,826 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-31 10:10:54,828 - werkzeug - INFO -  * Restarting with stat
+2025-08-31 10:10:55,343 - __main__ - INFO - Gemini API key configured successfully
+2025-08-31 10:10:55,355 - werkzeug - WARNING -  * Debugger is active!
+2025-08-31 10:10:55,358 - werkzeug - INFO -  * Debugger PIN: 272-596-988
+2025-08-31 10:11:00,225 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:11:00] "GET / HTTP/1.1" 200 -
+2025-08-31 10:11:07,932 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:11:07] "POST /chat HTTP/1.1" 200 -
+2025-08-31 10:11:10,853 - werkzeug - INFO -  * Detected change in 'C:\\Users\\dell\\Desktop\\ChatX\\app.py', reloading
+2025-08-31 10:11:10,893 - werkzeug - INFO -  * Restarting with stat
+2025-08-31 10:11:11,386 - __main__ - INFO - Gemini API key configured successfully
+2025-08-31 10:11:11,397 - werkzeug - WARNING -  * Debugger is active!
+2025-08-31 10:11:11,400 - werkzeug - INFO -  * Debugger PIN: 272-596-988
+2025-08-31 10:11:18,489 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:11:18] "POST /chat HTTP/1.1" 200 -
+2025-08-31 10:11:20,543 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:11:20] "POST /clear HTTP/1.1" 200 -
+2025-08-31 10:11:33,837 - werkzeug - INFO -  * Detected change in 'C:\\Users\\dell\\Desktop\\ChatX\\test_multilingual.py', reloading
+2025-08-31 10:11:33,900 - werkzeug - INFO -  * Restarting with stat
+2025-08-31 10:11:34,361 - __main__ - INFO - Gemini API key configured successfully
+2025-08-31 10:11:34,368 - werkzeug - WARNING -  * Debugger is active!
+2025-08-31 10:11:34,374 - werkzeug - INFO -  * Debugger PIN: 272-596-988
+2025-08-31 10:11:54,947 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:11:54] "POST /chat HTTP/1.1" 200 -
+2025-08-31 10:12:04,068 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:12:04] "POST /chat HTTP/1.1" 200 -
+2025-08-31 10:12:14,002 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:12:14] "POST /chat HTTP/1.1" 200 -
+2025-08-31 10:12:24,132 - werkzeug - INFO - 127.0.0.1 - - [31/Aug/2025 10:12:24] "POST /chat HTTP/1.1" 200 -

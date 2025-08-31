@@ -8,6 +8,7 @@ from typing import Dict, List, Optional
 import json
 from datetime import datetime
 import time
+import requests
 
 # Load environment variables
 load_dotenv()
@@ -26,23 +27,14 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Check if Gemini API key is available
-GENAI_API_KEY = os.getenv('GENAI_API_KEY', 'AIzaSyAM98zNftgExLDfCtSAb8VQn20OQmHXAIs')
+GENAI_API_KEY = os.getenv('GENAI_API_KEY', 'AIzaSyCR2rR_VVxdAsPmM2MbMGHBZ6-ZDNl79GA')
 USE_GEMINI = bool(GENAI_API_KEY)
 
-# Initialize Gemini only if API key is available
-gemini_model = None
+# Gemini API configuration
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+
 if USE_GEMINI:
-    try:
-        import google.generativeai as genai
-        genai.configure(api_key=GENAI_API_KEY)
-        gemini_model = genai.GenerativeModel("gemini-2.0-flash-lite")
-        logger.info("Gemini API initialized successfully")
-    except ImportError:
-        USE_GEMINI = False
-        logger.error("google-generativeai not installed")
-    except Exception as e:
-        USE_GEMINI = False
-        logger.error(f"Failed to initialize Gemini: {e}")
+    logger.info("Gemini API key configured successfully")
 
 # Store conversation history in memory (in production, use a database)
 conversation_history = []
@@ -211,19 +203,32 @@ def get_gemini_system_prompt(context: Dict[str, str] = None):
     return base_prompt
 
 def generate_gemini_response(user_message: str, context: Dict[str, str]) -> str:
-    """Generate response using Gemini API with rate limiting and error handling"""
-    if not gemini_model:
+    """Generate response using Gemini API with direct HTTP requests"""
+    if not USE_GEMINI:
         return get_dummy_response(user_message)
     
     try:
-        # Create conversation history for context
-        conversation = gemini_model.start_chat(history=[])
-        
-        # Add system prompt
-        system_prompt = get_gemini_system_prompt(context)
-        
         # Create the full prompt
+        system_prompt = get_gemini_system_prompt(context)
         full_prompt = f"{system_prompt}\n\nUser: {user_message}\n\nPlease respond in {context['language']} language."
+        
+        # Prepare the request
+        headers = {
+            'Content-Type': 'application/json',
+            'X-goog-api-key': GENAI_API_KEY
+        }
+        
+        payload = {
+            "contents": [
+                {
+                    "parts": [
+                        {
+                            "text": full_prompt
+                        }
+                    ]
+                }
+            ]
+        }
         
         # Generate response with retry logic for rate limiting
         max_retries = 3
@@ -231,12 +236,17 @@ def generate_gemini_response(user_message: str, context: Dict[str, str]) -> str:
         
         for attempt in range(max_retries):
             try:
-                response = gemini_model.generate_content(full_prompt)
-                return response.text
+                response = requests.post(GEMINI_API_URL, headers=headers, json=payload, timeout=30)
                 
-            except Exception as e:
-                error_str = str(e).lower()
-                if 'rate_limit' in error_str or 'quota' in error_str or '429' in error_str:
+                if response.status_code == 200:
+                    data = response.json()
+                    if 'candidates' in data and len(data['candidates']) > 0:
+                        return data['candidates'][0]['content']['parts'][0]['text']
+                    else:
+                        logger.error("Unexpected response format from Gemini API")
+                        return get_dummy_response(user_message)
+                        
+                elif response.status_code == 429:  # Rate limit
                     if attempt < max_retries - 1:
                         logger.warning(f"Rate limit hit, retrying in {retry_delay} seconds... (attempt {attempt + 1}/{max_retries})")
                         time.sleep(retry_delay)
@@ -246,8 +256,15 @@ def generate_gemini_response(user_message: str, context: Dict[str, str]) -> str:
                         logger.error("Rate limit exceeded, falling back to dummy response")
                         return get_dummy_response(user_message)
                 else:
-                    logger.error(f"Gemini API error: {e}")
+                    logger.error(f"Gemini API error: {response.status_code} - {response.text}")
                     return get_dummy_response(user_message)
+                    
+            except requests.exceptions.Timeout:
+                logger.error("Request timeout")
+                return get_dummy_response(user_message)
+            except requests.exceptions.RequestException as e:
+                logger.error(f"Request failed: {e}")
+                return get_dummy_response(user_message)
                     
     except Exception as e:
         logger.error(f"Error generating Gemini response: {e}")
@@ -269,7 +286,7 @@ def chat_endpoint():
         detected_language = detect_language(user_message)
         context = get_educational_context(user_message, detected_language)
         
-        if USE_GEMINI and gemini_model:
+        if USE_GEMINI:
             # Use Gemini API
             response_text = generate_gemini_response(user_message, context)
             
