@@ -27,7 +27,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Check if Gemini API key is available
-GENAI_API_KEY = os.getenv('GENAI_API_KEY', 'AIzaSyCR2rR_VVxdAsPmM2MbMGHBZ6-ZDNl79GA')
+GENAI_API_KEY = os.getenv('GENAI_API_KEY')
 USE_GEMINI = bool(GENAI_API_KEY)
 
 # Gemini API configuration
